@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Muhammad Jawad Khan - Personal Website</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      scroll-behavior: smooth;
+      color-scheme: light;
+      --bg: #f5f5f7;
+      --bg-alt: #ffffff;
+      --primary: #0b7285;
+      --primary-soft: #e3fafc;
+      --text: #222222;
+      --muted: #555555;
+      --border: #dddddd;
+      --shadow-soft: 0 12px 30px rgba(0, 0, 0, 0.06);
+      --radius-lg: 18px;
+      --radius-xl: 24px;
+      --nav-height: 64px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: radial-gradient(circle at top left, #e7f5ff, #f8f9fa 50%, #ffffff);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(14px);
+      background: rgba(248, 249, 250, 0.88);
+      border-bottom: 1px solid rgba(222, 226, 230, 0.8);
+    }
+
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      height: var(--nav-height);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      font-weight: 700;
+      font-size: 1.05rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--primary);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.25rem;
+      font-size: 0.95rem;
+    }
+
+    .nav-links a {
+      position: relative;
+      padding: 0.2rem 0;
+      color: var(--muted);
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -0.25rem;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.2s ease-out;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-toggle {
+      display: none;
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-size: 1.45rem;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        position: absolute;
+        top: var(--nav-height);
+        right: 0;
+        background: rgba(248, 249, 250, 0.98);
+        border-left: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+        border-radius: 0 0 0 16px;
+        box-shadow: var(--shadow-soft);
+        padding: 0.75rem 1.5rem 1rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+        transform: translateY(-150%);
+        opacity: 0;
+        pointer-events: none;
+        transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+      }
+
+      .nav-links.open {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .nav-toggle {
+        display: block;
+      }
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1.5rem;
+      padding-top: 2rem;
+    }
+
+    section {
+      margin-bottom: 2.5rem;
+    }
+
+    .card {
+      background: var(--bg-alt);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-soft);
+      padding: 1.75rem 1.75rem 1.9rem;
+      border: 1px solid rgba(206, 212, 218, 0.4);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      gap: 1rem;
+    }
+
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    .section-tag {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--primary);
+      background: var(--primary-soft);
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    p {
+      margin-bottom: 0.75rem;
+      color: var(--muted);
+      font-size: 0.97rem;
+    }
+
+    ul {
+      padding-left: 1.1rem;
+      margin-bottom: 0.75rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    li + li {
+      margin-top: 0.3rem;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 2.3fr) minmax(0, 1.7fr);
+      gap: 1.75rem;
+      align-items: center;
+    }
+
+    .hero-main h1 {
+      font-size: 2rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .hero-main h2 {
+      font-size: 1.05rem;
+      font-weight: 500;
+      margin-bottom: 0.9rem;
+      color: var(--muted);
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .pill {
+      font-size: 0.8rem;
+      border-radius: 999px;
+      padding: 0.2rem 0.7rem;
+      border: 1px solid rgba(173, 181, 189, 0.8);
+      color: #444;
+      background: #ffffff;
+    }
+
+    .hero-actions {
+      margin-top: 0.75rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      padding: 0.45rem 1.1rem;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: background 0.16s ease-out, color 0.16s ease-out, transform 0.08s ease-out, box-shadow 0.16s ease-out, border-color 0.16s ease-out;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #ffffff;
+      box-shadow: 0 10px 20px rgba(11, 114, 133, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 26px rgba(11, 114, 133, 0.32);
+    }
+
+    .btn-outline {
+      background: #ffffff;
+      color: var(--primary);
+      border-color: rgba(11, 114, 133, 0.4);
+    }
+
+    .btn-outline:hover {
+      background: var(--primary-soft);
+      border-color: var(--primary);
+    }
+
+    .hero-side {
+      justify-self: stretch;
+    }
+
+    .hero-panel {
+      height: 100%;
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(206, 212, 218, 0.7);
+      background: radial-gradient(circle at top, #e3fafc, #ffffff);
+      padding: 1.3rem 1.45rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1.1rem;
+    }
+
+    .hero-panel h3 {
+      font-size: 0.95rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .hero-panel p {
+      font-size: 0.9rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .key-list {
+      font-size: 0.88rem;
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .key-list li {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.75rem;
+      border-bottom: 1px dashed rgba(173, 181, 189, 0.6);
+      padding: 0.25rem 0;
+    }
+
+    .key-label {
+      color: #555;
+    }
+
+    .key-value {
+      color: #111;
+      font-weight: 500;
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1.4fr);
+      gap: 1.25rem;
+    }
+
+    @media (max-width: 900px) {
+      .two-col {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .subheading {
+      font-weight: 600;
+      font-size: 0.98rem;
+      margin: 0.4rem 0 0.25rem;
+    }
+
+    .tagline {
+      font-size: 0.86rem;
+      color: #6c757d;
+      margin-bottom: 0.4rem;
+    }
+
+    .item-block {
+      margin-bottom: 0.7rem;
+    }
+
+    .muted-label {
+      font-size: 0.85rem;
+      color: #868e96;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+    }
+
+    .timeline {
+      list-style: none;
+      padding-left: 0;
+      border-left: 1px solid rgba(173, 181, 189, 0.8);
+      margin-left: 0.45rem;
+    }
+
+    .timeline-item {
+      padding-left: 0.9rem;
+      position: relative;
+      margin-bottom: 0.8rem;
+    }
+
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: -0.35rem;
+      top: 0.28rem;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--primary);
+    }
+
+    .timeline-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .timeline-meta {
+      font-size: 0.82rem;
+      color: #868e96;
+      margin-bottom: 0.25rem;
+    }
+
+    .cv-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 0.4rem;
+    }
+
+    footer {
+      max-width: 1100px;
+      margin: 0 auto 1.5rem;
+      padding: 0 1.5rem;
+      font-size: 0.8rem;
+      color: #868e96;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="nav-container">
+    <div class="brand">M. J. Khan</div>
+    <button class="nav-toggle" aria-label="Toggle navigation" onclick="toggleNav()">☰</button>
+    <nav class="nav-links" id="navMenu">
+      <a href="#home">Home</a>
+      <a href="#research">Research</a>
+      <a href="#teaching">Teaching</a>
+      <a href="#work-experience">Work Experience</a>
+      <a href="#cv">CV</a>
+      <a href="#extension">Extension</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- Home -->
+  <section id="home">
+    <div class="card">
+      <div class="hero">
+        <div class="hero-main">
+          <h1>Muhammad Jawad Khan</h1>
+          <h2>Postdoctoral Research Associate, Environmental and Resource Economics</h2>
+
+          <div class="hero-meta">
+            <span class="pill">Environmental & Resource Economics</span>
+            <span class="pill">Agricultural Economics</span>
+            <span class="pill">Experimental & Survey Methods</span>
+          </div>
+
+          <p>
+            I am an environmental and natural resource economist whose work focuses on sustainable consumer choices,
+            climate risk in food systems, and resource-efficient agricultural production. My research combines
+            non-market valuation, experimental methods, and applied econometrics to study how households and producers
+            respond to environmental change.
+          </p>
+
+          <p>
+            I hold a PhD in Natural Resources and Environmental Studies with a specialization in Environmental and
+            Resource Economics from the University of New Hampshire, an MS in Resource Economics from Cornell University,
+            and a BS in Economics (Gold Medalist) from BUITEMS, Pakistan.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#research" class="btn btn-primary">View research</a>
+            <a href="#cv" class="btn btn-outline">Go to CV section</a>
+          </div>
+        </div>
+
+        <aside class="hero-side">
+          <div class="hero-panel">
+            <div>
+              <h3>Current position</h3>
+              <p>
+                Postdoctoral Research Associate in Environmental and Resource Economics, University of Illinois Urbana-Champaign
+                (Jan 2025 - present).
+              </p>
+            </div>
+
+            <div>
+              <h3>Fields of interest</h3>
+              <ul class="key-list">
+                <li>
+                  <span class="key-label">Primary</span>
+                  <span class="key-value">Environmental & Resource Economics</span>
+                </li>
+                <li>
+                  <span class="key-label">Secondary</span>
+                  <span class="key-value">Agricultural Economics, Experimental Economics</span>
+                </li>
+                <li>
+                  <span class="key-label">Methods</span>
+                  <span class="key-value">Non-market valuation, discrete choice, auctions, spatial analysis</span>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h3>Contact</h3>
+              <ul class="key-list">
+                <li>
+                  <span class="key-label">Email</span>
+                  <span class="key-value">mk964@cornell.edu</span>
+                </li>
+                <li>
+                  <span class="key-label">Phone</span>
+                  <span class="key-value">+1-518-818-9236</span>
+                </li>
+                <li>
+                  <span class="key-label">Location</span>
+                  <span class="key-value">Dover, NH, USA</span>
+                </li>
+              </ul>
+            </div>
+
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- Research -->
+  <section id="research">
+    <div class="card">
+      <div class="section-header">
+        <h2 class="section-title">Research</h2>
+        <span class="section-tag">Sustainable consumer choices & climate risk</span>
+      </div>
+
+      <div class="two-col">
+        <div>
+          <p>
+            My research agenda centers on the economics of sustainable consumer choices and climate resilience in
+            food and agricultural systems. I focus on how households trade off multiple environmental attributes,
+            how information about climate adaptation affects willingness to pay, and how producers and policy makers
+            can use this information to design resilient systems.
+          </p>
+
+          <p>
+            I use a combination of discrete choice experiments, incentive compatible auctions, and spatial and
+            bioeconomic models. Much of my work is applied to concrete cases such as tree syrups, lettuce production,
+            drinking water contamination, and integrated pest management in field crops.
+          </p>
+
+          <h3 class="subheading">Core research areas</h3>
+          <ul>
+            <li>Demand for climate adapted and diversified food products</li>
+            <li>Tradeoffs across water, land, nitrogen, and energy footprints in food systems</li>
+            <li>Household willingness to pay to reduce environmental and health risks (PFAS and water quality)</li>
+            <li>Economic evaluation of integrated pest management strategies</li>
+            <li>Methodological work on non-market valuation and benefits transfer</li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="subheading">Selected publications and working papers</h3>
+
+          <div class="item-block">
+            <div class="tagline">Exploring the shelf-life of travel cost methods</div>
+            <p>
+              He, X., <strong>Khan, M. J.</strong>, Spink, E. M., & Poe, G. L. (2022).
+              Exploring the shelf-life of travel cost methods of valuing recreation for benefits transfer.
+              <em>Resource and Energy Economics</em>, 63, 101123 (with corrigendum 68, 101335).
+            </p>
+          </div>
+
+          <div class="item-block">
+            <div class="tagline">Demand for climate adapted food</div>
+            <p>
+              <strong>Khan, M. J.</strong>, Atallah, S. S., Kalaitzandonakes, M. H., & Ellison, B.
+              Demand for climate-adapted food: An application to tree syrups.
+              Becker-DeGroot-Marschak auction study on maple and birch syrups with randomized information
+              treatments on forest diversification and climate resilience. Manuscript under review.
+            </p>
+          </div>
+
+          <div class="item-block">
+            <div class="tagline">Environmental footprints of lettuce</div>
+            <p>
+              <strong>Khan, M. J.</strong>, & Atallah, S. S. How do consumers trade off food environmental footprints?
+              The case of water, land, nitrogen, and energy footprints of US lettuce.
+              Nationwide choice experiment studying willingness to pay for multi-dimensional sustainability attributes.
+            </p>
+          </div>
+
+          <div class="item-block">
+            <div class="tagline">Drinking water contamination and PFAS</div>
+            <p>
+              <strong>Khan, M. J.</strong>, & Halstead, J. M. Drinking water contamination in New England:
+              Household willingness to pay to avoid PFAS exposure.
+              Contingent valuation study of household WTP for PFAS filtration across New England states.
+            </p>
+          </div>
+
+          <div class="item-block">
+            <div class="tagline">Integrated pest management in sweet corn</div>
+            <p>
+              <strong>Khan, M. J.</strong>, & Fan, X. A hierarchical approach to integrated pest management (IPM)
+              in sweet corn farms. Bioeconomic modeling of pest dynamics, pesticide use, and economic thresholds.
+            </p>
+          </div>
+
+          <p class="muted-label">Full list of publications, working papers, and conference presentations is available in the CV section.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Teaching -->
+  <section id="teaching">
+    <div class="card">
+      <div class="section-header">
+        <h2 class="section-title">Teaching</h2>
+        <span class="section-tag">Courses & experience</span>
+      </div>
+
+      <div class="two-col">
+        <div>
+          <p>
+            My teaching experience spans environmental economics, microeconomics, econometrics, and applied economics
+            in both the United States and Pakistan. I have served as instructor of record, teaching assistant, and
+            department chair, with responsibilities that include course design, mentoring, and curriculum development.
+          </p>
+
+          <h3 class="subheading">Teaching interests</h3>
+          <ul>
+            <li>Environmental and Resource Economics</li>
+            <li>Agricultural Economics and Agribusiness</li>
+            <li>Food and Agricultural Marketing</li>
+            <li>Applied Econometrics and Data Analytics</li>
+            <li>Intermediate and Advanced Microeconomics</li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="subheading">Selected courses taught</h3>
+          <ul>
+            <li><strong>EREC 708 / RECO 808 Environmental Economics</strong>, University of New Hampshire (Instructor of record)</li>
+            <li><strong>Environmental & Resource Economics Perspective</strong>, UNH (Teaching Assistant, Fall 2023 - Fall 2024)</li>
+            <li><strong>Advanced Microeconomics</strong>, BUITEMS (Assistant Professor, Visiting Faculty)</li>
+            <li><strong>Environmental Economics</strong>, BUITEMS</li>
+            <li><strong>Econometrics</strong>, BUITEMS</li>
+            <li><strong>Applied Economics</strong>, BUITEMS</li>
+          </ul>
+
+          <h3 class="subheading">Teaching approach</h3>
+          <p>
+            I link theory to current policy debates and real data, often drawing directly from my research on climate
+            adaptation, food systems, and environmental risk. I emphasize transparency in methods and encourage students
+            to work with experimental and survey data, including choice experiments and auction data, to build hands-on
+            skills in applied econometrics.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Work Experience -->
+  <section id="work-experience">
+    <div class="card">
+      <div class="section-header">
+        <h2 class="section-title">Work Experience</h2>
+        <span class="section-tag">Academic & professional</span>
+      </div>
+
+      <div class="two-col">
+        <div>
+          <h3 class="subheading">Academic positions</h3>
+          <ul class="timeline">
+            <li class="timeline-item">
+              <div class="timeline-title">Postdoctoral Research Associate</div>
+              <div class="timeline-meta">University of Illinois Urbana-Champaign, USA (Jan 2025 - present)</div>
+              <p>
+                Environmental and natural resource economist working on climate adaptation, sustainable food systems,
+                and non-market valuation.
+              </p>
+            </li>
+
+            <li class="timeline-item">
+              <div class="timeline-title">Environmental and Natural Resource Economist</div>
+              <div class="timeline-meta">University of Illinois Urbana-Champaign, USA (Summer 2023, Summer 2024)</div>
+              <p>
+                Conducted research on agrobiodiversity, climate adapted products, and consumer demand for
+                sustainable food systems.
+              </p>
+            </li>
+
+            <li class="timeline-item">
+              <div class="timeline-title">Research Assistant</div>
+              <div class="timeline-meta">University of New Hampshire, USA (2019 - 2023)</div>
+              <p>
+                Worked on projects in environmental and resource economics, including PFAS contamination, forest
+                diversification, and lettuce environmental footprints.
+              </p>
+            </li>
+
+            <li class="timeline-item">
+              <div class="timeline-title">Graduate Research Assistant</div>
+              <div class="timeline-meta">Cornell University, USA (2011 - 2014)</div>
+              <p>
+                Worked with Prof. Gregory L. Poe on non-market valuation and benefits transfer for recreational
+                fisheries and environmental resources.
+              </p>
+            </li>
+
+            <li class="timeline-item">
+              <div class="timeline-title">Assistant Professor and Chairperson, Economics</div>
+              <div class="timeline-meta">BUITEMS, Pakistan (Lecturer 2009 - 2014; Assistant Professor 2014 - 2019; Chair 2017 - 2019)</div>
+              <p>
+                Led a department of around 30 faculty, developed curricula, oversaw research initiatives, supervised
+                student projects, and taught microeconomics, environmental economics, and econometrics.
+              </p>
+            </li>
+
+            <li class="timeline-item">
+              <div class="timeline-title">Visiting Faculty, Economics</div>
+              <div class="timeline-meta">Sardar Bahadur Khan Women University, Pakistan (2014 - 2016)</div>
+              <p>
+                Taught Advanced Microeconomics to MPhil students.
+              </p>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="subheading">Industry and leadership experience</h3>
+          <ul class="timeline">
+            <li class="timeline-item">
+              <div class="timeline-title">Impact Assessment Leader</div>
+              <div class="timeline-meta">Participatory Integrated Development Society, Pakistan (Nov 2014 - Jan 2015)</div>
+              <p>
+                Led impact evaluations of development projects, focusing on livelihoods and environmental outcomes.
+              </p>
+            </li>
+
+            <li class="timeline-item">
+              <div class="timeline-title">Regional Coordinator (Balochistan)</div>
+              <div class="timeline-meta">Global Environment Management Services, Pakistan (Aug 2014 - Sept 2014)</div>
+              <p>
+                Coordinated environmental management and monitoring activities at the regional level.
+              </p>
+            </li>
+
+            <li class="timeline-item">
+              <div class="timeline-title">Consultant</div>
+              <div class="timeline-meta">SMEDA, Pakistan (Nov 2009 - Dec 2010)</div>
+              <p>
+                Developed pre-feasibility reports and business plans for small and medium enterprises in Pakistan.
+              </p>
+            </li>
+
+            <li class="timeline-item">
+              <div class="timeline-title">Research Intern / Management Associate</div>
+              <div class="timeline-meta">SMEDA, Pakistan (Nov 2008 - Nov 2009)</div>
+              <p>
+                Conducted market research and feasibility studies for SME projects.
+              </p>
+            </li>
+
+            <li class="timeline-item">
+              <div class="timeline-title">Professional service and leadership</div>
+              <div class="timeline-meta">Various roles</div>
+              <p>
+                General Secretary, Fulbright Alumni Association; Conference Secretary for ICEIME; reviewer and judge
+                for academic conferences; trainer for faculty development programs; and Cornell Admission Ambassador.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CV -->
+  <section id="cv">
+    <div class="card">
+      <div class="section-header">
+        <h2 class="section-title">Curriculum Vitae</h2>
+        <span class="section-tag">Snapshot</span>
+      </div>
+
+      <h3 class="subheading">Education</h3>
+      <ul>
+        <li><strong>PhD in Natural Resources and Environmental Studies</strong>, University of New Hampshire, USA (2019 - 2024). Specialization in Environmental and Resource Economics.</li>
+        <li><strong>MS in Resource Economics</strong>, Cornell University, Charles H. Dyson School of Applied Economics and Management, USA (2011 - 2014). Major in Environmental and Resource Economics.</li>
+        <li><strong>BS in Economics (Gold Medalist)</strong>, BUITEMS, Pakistan (2004 - 2008).</li>
+        <li><strong>Graduate Certificate in Data Science</strong>, University of New Hampshire, USA (2022).</li>
+      </ul>
+
+      <h3 class="subheading">Selected recognitions</h3>
+      <ul>
+        <li>Northeastern Agricultural and Resource Economics Association CAM Cohort Fellow (2025 - 2027)</li>
+        <li>George Curley Frick Fellow (2022, 2023)</li>
+        <li>Fulbright Scholar (2011 - 2013)</li>
+        <li>Best Faculty Award, BUITEMS (2016)</li>
+        <li>Gold Medal in BS Economics and merit scholarships throughout BS program</li>
+      </ul>
+
+      <h3 class="subheading">Technical skills</h3>
+      <ul>
+        <li><strong>Programming and software</strong>: R, Python, STATA, SPSS, GIS, Tableau</li>
+        <li><strong>Methods</strong>: Econometrics, non-market valuation, policy analysis</li>
+        <li><strong>Languages</strong>: English, Urdu (native), Pashto (intermediate)</li>
+      </ul>
+
+      <p>
+        A full CV including detailed publication list, grants, service, and outreach activities is available as a PDF.
+      </p>
+
+      <div class="cv-links">
+        <!-- Replace with your actual CV file path, for example "files/Khan_Academic_CV.pdf" -->
+        <a href="Khan_Academic_CV.pdf" class="btn btn-primary" target="_blank" rel="noopener">
+          Open full CV (PDF)
+        </a>
+        <a href="Khan_Academic_CV.pdf" class="btn btn-outline" download>
+          Download CV
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Extension -->
+  <section id="extension">
+    <div class="card">
+      <div class="section-header">
+        <h2 class="section-title">Extension & Outreach</h2>
+        <span class="section-tag">Engagement</span>
+      </div>
+
+      <div class="two-col">
+        <div>
+          <p>
+            My extension and outreach work focuses on translating research on climate risk, diversification, and
+            non-market valuation into practical guidance for growers, policy makers, and community partners.
+            I regularly engage with stakeholders through talks, workshops, and collaborative projects.
+          </p>
+
+          <h3 class="subheading">Focus areas</h3>
+          <ul>
+            <li>Economic implications of climate adaptation and diversification in forestry and agriculture</li>
+            <li>Household willingness to pay for safe drinking water and environmental quality</li>
+            <li>Communication of experimental auction and choice experiment results to producers and industry</li>
+            <li>Skills development and capacity building for students and early career professionals</li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="subheading">Selected activities and service</h3>
+          <ul>
+            <li>Collaborator on projects highlighted by the New Hampshire Agricultural Experiment Station, including work on diversifying the syrup industry.</li>
+            <li>Volunteer in Dr. Muhammad Adnan Shahid's lab at the University of Florida, contributing to survey design and data analysis on plant stress physiology and grower profitability.</li>
+            <li>Invited judge and mentor for undergraduate research conferences and entrepreneurship competitions.</li>
+            <li>Trainer for professional development programs for new faculty and workshops on professional skills and scholarship applications.</li>
+            <li>Organizer and reviewer for international conferences on emerging issues in management and economics.</li>
+          </ul>
+
+          <p class="muted-label">
+            Extension briefs, factsheets, and presentation materials can be shared on request or added to this page as they are produced.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  © <span id="year"></span> Muhammad Jawad Khan. All rights reserved.
+</footer>
+
+<script>
+  function toggleNav() {
+    const menu = document.getElementById("navMenu");
+    menu.classList.toggle("open");
+  }
+
+  document.querySelectorAll(".nav-links a").forEach(link => {
+    link.addEventListener("click", () => {
+      const menu = document.getElementById("navMenu");
+      menu.classList.remove("open");
+    });
+  });
+
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
